@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>nyhetis</title>
+  <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/css/pikaday.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,900|Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  
+  <script type="text/x-handlebars">
+   
+    <div id="wrap">
+    
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            
+            {{#link-to 'news' class="navbar-brand"}}
+              <img src="images/logo.png" alt="Nyhetis"></img>
+            {{/link-to}}
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+          </div>
+          <div class="collapse navbar-collapse">
+            
+
+            <form id="filter-form" class="navbar-form navbar-right form-inline" style="display:none" {{action filter on='change'}} role="form">
+              <div class="form-group">
+                <label for="from">From</label>
+              </div>
+
+              <div class="form-group">
+                {{view App.CalendarDatePicker class="form-control" placeholder="12-12-2012" valueBinding="from"}}
+              </div>
+
+              <div class="form-group">
+                <label for="until">Until</label> 
+              </div>
+              
+              <div class="form-group">
+                {{view App.CalendarDatePicker class="form-control"  placeholder="12-12-2012" valueBinding="to"}}
+              </div>
+            </form>
+
+            <form {{bind-attr id="loginFormId"}} class="navbar-form navbar-right form-inline" style="display:none" {{action login on='submit'}} role="form">
+              
+              <div class="form-group">
+                <a {{action 'loginForm' '#login-form'}}>
+                  <span class="glyphicon glyphicon-remove-circle icon"></span>
+                </a>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only" for="email">email</label>
+                {{input type="text" value=email placeholder="email" class="form-control"}}
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only" for="password">password</label>
+                {{input type="password" value=password placeholder="password" class="form-control"}}
+              </div>
+                <div class="form-group">
+              <button type="submit" class="btn btn-signin important">Submit</button>
+              </div>
+
+            </form>
+
+
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a {{action 'toggleFilterForm' '#filter-form'}}
+                  <span class="glyphicon glyphicon-time icon"></span>
+                </a>
+              </li>
+              {{#if currentUser}}
+                <li>
+                  <a>{{currentUser}}</a>
+                </li>
+                <li>
+                  <a {{action 'logout'}} class="important">Sign out</a>
+                </li>
+                <li>
+                  {{#link-to 'words'}}
+                    <span class="glyphicon glyphicon-cog icon"></span>
+                  {{/link-to}}
+                </li>
+              {{else}}
+                {{#unless expandedLoginForm}}
+                  <li>
+                    <a {{action 'loginForm' '#login-form'}} class="important">Sign in</a>
+                  </li>
+                {{/unless}}
+              {{/if}}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+      <div class="container">
+        {{outlet}}
+      </div>
+
+    </div>     
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted pull-right">
+          &copy; nyhetis 2013. Luis Carlos Mateos
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="news">
+      <div class="row">
+        {{#each}}
+        <div class="new-container col-xs-12 col-sm-6 col-md-4">
+          <!-- src="images/test.jpg" -->
+          <a target="_blank" {{bind-attr href="url"}} class="thumbnail">
+            <img data-src="holder.js/100%x150" {{bind-attr src="image"}}  class="img-responsive" style="height: 150px"></img>
+          </a>
+          <header class="new-header">
+            <div class="new-date">{{format-date date}}</div>
+            <h2><a target="_blank" {{bind-attr href="url"}}>{{heading}}</a></h2>
+            <div class="new-metadata">
+              <span class="new-relevance">score {{relevance}}</span>
+              <span class="new-source">{{source}}</span>
+            </div>
+          </header>
+          <p class="new-content">{{truncate content}}</p>
+        </div>
+        {{/each}}
+      </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="words">
+      <div class="row">
+        <section class="col-sm-6 col-xs-12">
+          <h2>Bag of Words</h2> 
+
+          <p class="alert">
+            The bag of words contains those terms used in the search of the news. Adding or removing terms from the bag will result on 
+            different behaviour and results of the search. Use this feature wisely.
+          </p>
+          <p>There are currently <strong>{{total}} {{inflection}}</strong> in the bag.</p>
+          <p>
+          {{input type="text" id="new-word" placeholder="Add term to the bag" class="form-control" value=newWord action="addWord"}}
+          </p>
+          <table id="bag-of-words" class="table">
+            {{#each itemController="word"}}
+              <tr>
+                <td><button class="btn-linkified destroy" {{action "removeWord"}}> <span class="glyphicon glyphicon-trash icon"></span> </button></td>
+                <td><label {{action "editWord" on="doubleClick"}}>{{text}}</label></td>
+              </tr>
+            {{/each}}
+          </table>
+        </section>
+
+        <section class="col-sm-6 col-xs-12">
+          <header>
+            <h2>Search status</h2>
+          </header>
+          <p class="alert">
+            The crawler is <strong>{{status}}</strong> at the moment
+          </p>
+          {{#unless isActive}}
+            <p>
+              <button {{action 'scheduleSearchJob'}} class="btn btn-primary btn-lg btn-block">Launch search job</button>
+            </p>
+          {{/unless}}
+        </section>
+      </div>
+  </script>
+
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-canary-1.4.0-beta.1.js"></script>
+  <script src="js/libs/ember-data-1.0-beta.5-pre.js"></script>
+  <script src="js/libs/localstorage_adapter.js"></script>
+  <script src="vendor/js/bootstrap.min.js"></script>
+  <script src="vendor/js/holder.js"></script>
+  <script src="vendor/js/moment.js"></script>
+  <script src="vendor/js/pikaday.js"></script>
+  <script src="vendor/js/jquery.cookie.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/controllers/words_controller.js"></script>
+  <script src="js/views.js"></script>
+  
+
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="tests/runner.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+/* Put your CSS here */
+
+.ember-application {
+/*    margin: 20px;*/
+/*height: 100%;*/
+padding-top: 50px;
+}
+
+body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font: 100%/120% 'Lato',"Helvetica Neue",sans-serif;
+  font-size: 14px;
+}
+
+h1,h2,h3 {
+  font-family: 'Lato', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  display: inline-block;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+  font-size: .875em;
+}
+
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+section header:after{
+  clear:both;
+}
+
+input[type=text],
+input[type=password]{
+  background-color: #ebebeb;
+  border-radius: 0px;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: none;
+  --webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+}
+
+.btn-linkified,
+.btn-signin{
+  background: none;
+  border: 0px;
+  padding: 0px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooting: antialiased;
+}
+
+.btn-primary{
+  background-color: #0093cc;
+  border-color: none;
+}
+
+.icon{
+   font-size: 18px;
+   color: #777;
+}
+
+/******************************************/
+/*  Navbar */
+.navbar-default{
+  background-color: #fff; 
+  font-size: .9em;
+}
+
+.navbar-default a{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav>li>.important:active,
+.navbar-default .navbar-nav>li>.important:hover,
+.navbar-default .navbar-nav>li>.important,
+.navbar-default .navbar-form .important,
+.navbar-default .navbar-form .important:hover,
+.important,
+.time-icon:hover,
+.time-icon:visited,
+.time-icon:active{
+  color: #0093cc;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{
+  background: none;
+}
+
+.navbar-default .navbar-toggle{
+  border: none;
+}
+
+.navbar-brand {
+  font-size: 30px !important;
+  /*font-family: "Avenir Next Condensed";*/
+  padding: 9px 15px;
+  color: rgb( 0, 0, 0 );
+  line-height: 0.667;
+  -moz-transform: scale(0.83, 1);
+  -webkit-transform: scale(0.83, 1);
+  -ms-transform: scale(0.83, 1);
+}
+
+.navbar-default form{
+  padding-right: 0px;
+}
+
+/* forms */
+.form-group{
+  margin: 1px 15px 1px 0;
+}
+
+/* login form */
+
+.btn-signin{
+  font-size: 13px;
+}
+
+/* filter form */
+
+label{
+  margin: 0;
+  font-weight: normal;
+}
+
+/******************************************/
+/*  New container */
+
+.new-container .thumbnail{
+  padding: 0;
+  margin-bottom: 10px;
+  background-color: #eee;
+}
+
+.new-container h2 a{
+  font:900 1.075em/1.125em 'Lato',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-decoration: none;
+  color: #191919;
+  -webkit-transition: color .15s cubic-bezier(0,0,.58,1);
+  -moz-transition: color .15s cubic-bezier(0,0,.58,1);
+  -o-transition: color .15s cubic-bezier(0,0,.58,1);
+  transition: color .15s cubic-bezier(0,0,.58,1);
+}
+
+.new-container h2{
+  font:900 1.375em/1.136em 'Lato',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #191919;
+  font-weight: bold;
+  line-height: 0.833;
+}
+
+.new-container h2 a:active,
+.new-container h2 a:hover{
+  color: #0093cc;
+  text-decoration: none;
+}
+
+.new-container header h2{
+  margin: 0;
+}
+
+.new-date{
+  font: 700 .8em/1.091em 'Lato',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-transform: uppercase;
+  margin: 0 0 .364em;
+  color: #555;
+}
+
+.new-container .new-content{
+  color: #444;
+}
+
+.new-container .new-content,
+.alert{
+  font: .895em/1.45em 'Lato',"Helvetica Neue",sans-serif;
+  margin: .25em 0 .357em;
+}
+
+.new-container{
+  padding: 13px;
+  min-height: 415px;
+}
+
+.new-metadata {
+  font-size: 0.7em;
+  font-weight: bold;
+  color: #555;
+  margin: 10px 0;
+}
+
+.new-source:before {
+  margin: 0 4px 0px 3px;
+  content: '\00B7';
+}
+
+ 
+/* Landscape phones and down */
+@media (max-width: 767px){
+  .new-container{
+    min-height: 0px;
+  }  
+}
+
+@media (max-width: 480px){
+  .new-container{
+    min-height: 0px;
+  }  
+}
